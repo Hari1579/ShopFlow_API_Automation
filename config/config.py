@@ -7,3 +7,7 @@ class Config:
         "Content-Type": "application/json",
         "Accept": "application/json"
     }
+
+    # Restful Booker default credentials for token generation
+    AUTH_USER = "admin"
+    AUTH_PASS = "password123"
