@@ -1,5 +1,7 @@
 import pytest
 from test_data.payloads import get_create_booking_payload
+from jsonschema import validate
+from test_data.schemas import create_booking_schema
 
 def test_create_booking_success(api_client):
     """
@@ -13,6 +15,14 @@ def test_create_booking_success(api_client):
     
     response_data = response.json()
     assert "bookingid" in response_data, "Response is missing 'bookingid'"
+    assert response_data["booking"]["firstname"] == payload["firstname"], "Firstname mismatch in response"
+
+    response_data = response.json()
+    
+    # ONE LINE to validate the entire structure, data types, and required fields!
+    validate(instance=response_data, schema=create_booking_schema)
+    
+    # We only need manual assertions for specific business logic values now
     assert response_data["booking"]["firstname"] == payload["firstname"], "Firstname mismatch in response"
 
 
