@@ -24,6 +24,9 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r requirements.txt
 
-    - name: Run PyTest API Suite
+    - name: Run PyTest API Suite 
+      env:
+        AUTH_USER: ${{ secrets.AUTH_USER }}
+        AUTH_PASS: ${{ secrets.AUTH_PASS }}
       run: |
         pytest tests/api/ -v --html=reports/ci_report.html
