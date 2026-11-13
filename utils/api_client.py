@@ -1,5 +1,6 @@
 import requests
 from config.config import Config
+from utils.logger import log
 
 class APIClient:
     def __init__(self):
@@ -31,8 +32,13 @@ class APIClient:
 
     def post(self, endpoint, payload=None):
         url = f"{self.base_url}{endpoint}"
-        print(f"\n[APIClient] POST {url}")
-        return requests.post(url, json=payload, headers=self.headers)
+        log.info(f"POST Request URL: {url}")
+        log.info(f"POST Request Payload: {payload}")
+        
+        response = requests.post(url, json=payload, headers=self.headers)
+        
+        log.info(f"Response Status: {response.status_code}")
+        return response
 
     def get(self, endpoint):
         url = f"{self.base_url}{endpoint}"
